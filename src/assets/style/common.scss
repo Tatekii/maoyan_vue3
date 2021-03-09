@@ -1,0 +1,31 @@
+body{
+  font-size: 14px;
+  color: #777;
+}
+a,img{
+  display: block;
+}
+a{
+  text-decoration: none;
+}
+body{
+  font-family: PingFangSC-Regular,Hiragino Sans GB,sans-serif;
+  -webkit-touch-callout: inherit;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body{
+  // 禁止页面滚动
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+.white-bg{
+  background-color: #fff;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
