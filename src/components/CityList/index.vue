@@ -55,9 +55,9 @@
 
 <script lang="ts">
 import "./index.scss";
-import {  ref } from "vue";
-import request from "@/util/request";
+import { ref } from "vue";
 import store from "@/store/simple_store";
+import requestCityList from "@/api/cityList";
 
 let cityList = ref();
 let hotCity = ref();
@@ -71,12 +71,10 @@ if (c && h) {
   cityList.value = c;
   hotCity.value = h;
 } else {
-  request({
-    url: "/cityList",
-    method: "get",
-  }).then((res) => {
-    let cts = res.cts;
-    let formated = formatCities(cts);
+  requestCityList.then((res) => {
+    res = res as any;
+    const c = res.cts;
+    let formated = formatCities(c);
     cityList.value = formated.cl;
     hotCity.value = formated.hl;
     window.localStorage.setItem("cityList", JSON.stringify(cityList.value));
