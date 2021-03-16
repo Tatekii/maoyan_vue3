@@ -3,8 +3,8 @@
     <div class="city_list">
       <div class="gps">
         <h2>定位城市</h2>
-        <div class="gps-status" @touchstart="changeGps">
-          <text>{{ curCity ? curCity : "定位失败，请点击重试" }}</text>
+        <div class="gps-status" @touchstart="handleReLocate()">
+          <text>{{ curCity.nm ? curCity.nm : "定位失败，请点击重试" }}</text>
         </div>
       </div>
       <div>
@@ -55,15 +55,12 @@
 
 <script lang="ts">
 import "./index.scss";
-import { ref, onMounted } from "vue";
-import store from "@/store/simple_store";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import requestCityList from "@/api/cityList";
-import gps from "@/util/gps"
 
 let cityList = ref();
 let hotCity = ref();
-let curCity = ref(store.state.nm);
-
 let c = window.localStorage.getItem("cityList");
 let h = window.localStorage.getItem("hotCity");
 if (c && c.length && h && h.length) {
@@ -83,23 +80,25 @@ if (c && c.length && h && h.length) {
 }
 export default {
   setup() {
-    onMounted(() => {});
+    const store = useStore();
+
+    const handleCity: (nm: string, id: number) => void = (nm, id) => {
+      console.log(`select ${nm} - id:${id}`);
+      store.commit("city/CHANGE_CITY", { nm: nm, id: id });
+    };
+
+    const handleReLocate: () => void = () => {
+      console.log("手动触发定位");
+    };
     return {
       cityList,
       hotCity,
-      curCity,
+      curCity: computed(() => store.state.city),
       handleIndex,
       handleCity,
-      changeGps,
+      handleReLocate,
     };
   },
-};
-
-const changeGps: () => void = async() => {
-  curCity.value = '定位中。。。'
-  const res:any = await gps()
-  curCity.value = res
-  store.mutations.CUR_CITY({nm:res})
 };
 
 function formatCities(data: Array<any>) {
@@ -161,12 +160,6 @@ function handleIndex(index: number | string): void {
   for (let i = 0; i < 22; i++) {
     alphaDom[i].classList.add("sticky");
   }
-}
-
-function handleCity(nm: string, id: number): void {
-  console.log(`select ${nm} - id:${id}`);
-  curCity.value = nm
-  store.mutations.CUR_CITY({nm:nm,id:id})
 }
 </script>
 
