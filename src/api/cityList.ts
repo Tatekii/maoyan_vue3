@@ -1,8 +1,8 @@
 import request from '@/util/request'
 
-const curRequest = request({
+const cityRequest = request({
   url: "/cityList",
-  method: "get",
+  method: "get"
 })
 
-export default curRequest
+export default cityRequest

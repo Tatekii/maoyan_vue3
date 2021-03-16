@@ -3,8 +3,8 @@
     <div class="city_list">
       <div class="gps">
         <h2>定位城市</h2>
-        <div class="gps-status">
-          <text>{{ gps ? gps : "定位失败，请点击重试" }}</text>
+        <div class="gps-status" @touchstart="changeGps">
+          <text>{{ curCity ? curCity : "定位失败，请点击重试" }}</text>
         </div>
       </div>
       <div>
@@ -55,43 +55,51 @@
 
 <script lang="ts">
 import "./index.scss";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import store from "@/store/simple_store";
 import requestCityList from "@/api/cityList";
+import gps from "@/util/gps"
 
 let cityList = ref();
 let hotCity = ref();
-let gps = ref("");
+let curCity = ref(store.state.nm);
 
 let c = window.localStorage.getItem("cityList");
 let h = window.localStorage.getItem("hotCity");
-if (c && h) {
+if (c && c.length && h && h.length) {
+  console.log("有缓存");
   c = JSON.parse(c);
   h = JSON.parse(h);
   cityList.value = c;
   hotCity.value = h;
 } else {
-  requestCityList.then((res) => {
-    res = res as any;
-    const c = res.cts;
-    let formated = formatCities(c);
+  requestCityList.then((res: any) => {
+    let formated = formatCities(res.cts);
     cityList.value = formated.cl;
     hotCity.value = formated.hl;
     window.localStorage.setItem("cityList", JSON.stringify(cityList.value));
     window.localStorage.setItem("hotCity", JSON.stringify(hotCity.value));
   });
 }
-
 export default {
   setup() {
+    onMounted(() => {});
     return {
       cityList,
       hotCity,
-      gps,
+      curCity,
       handleIndex,
       handleCity,
+      changeGps,
     };
   },
+};
+
+const changeGps: () => void = async() => {
+  curCity.value = '定位中。。。'
+  const res:any = await gps()
+  curCity.value = res
+  store.mutations.CUR_CITY({nm:res})
 };
 
 function formatCities(data: Array<any>) {
@@ -157,8 +165,8 @@ function handleIndex(index: number | string): void {
 
 function handleCity(nm: string, id: number): void {
   console.log(`select ${nm} - id:${id}`);
-  store.mutations.CUR_CITY({ nm, id });
-  console.log(store.state);
+  curCity.value = nm
+  store.mutations.CUR_CITY({nm:nm,id:id})
 }
 </script>
 

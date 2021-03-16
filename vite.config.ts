@@ -18,7 +18,12 @@ export default defineConfig({
       "/cityList": {
         target: "https://m.maoyan.com/dianying/cities.json",
         changeOrigin: true,
-        rewrite: path => path.replace("/cityList","")
+        rewrite: path => path.replace("/cityList", "")
+      },
+      "/location": {
+        target: "http://api.map.baidu.com/reverse_geocoding/v3/",
+        changeOrigin: true,
+        rewrite: path => path.replace("/location", "")
       }
     },
     cors: true

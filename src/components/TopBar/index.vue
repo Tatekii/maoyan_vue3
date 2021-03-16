@@ -3,21 +3,41 @@
     <div class="white-bg topbar-bg">
       <div class="city-entry">
         <router-link to="city-list">
-          <span class="city-name">深圳</span>
+          <span class="city-name">{{ curCity }}</span>
           <i class="city-entry-arrow"></i>
         </router-link>
       </div>
       <div class="switch-hot" :data-active="selected">
-        <a class="hot-item hot active" href="javascript:void(0)" data-tab="hot" @touchstart="select('hot')">
+        <a
+          class="hot-item hot active"
+          href="javascript:void(0)"
+          data-tab="hot"
+          @touchstart="select('hot')"
+        >
           <h2>热映</h2>
         </a>
-        <a class="hot-item cinema" href="javascript:void(0)" data-tab="cinema" @touchstart="select('cinema')" >
+        <a
+          class="hot-item cinema"
+          href="javascript:void(0)"
+          data-tab="cinema"
+          @touchstart="select('cinema')"
+        >
           <h2>影院</h2>
         </a>
-        <a class="hot-item coming" href="javascript:void(0)" data-tab="coming" @touchstart="select('coming')">
+        <a
+          class="hot-item coming"
+          href="javascript:void(0)"
+          data-tab="coming"
+          @touchstart="select('coming')"
+        >
           <h2>待映</h2>
         </a>
-        <a class="hot-item classic" href="javascript:void(0)" data-tab="classic" @touchstart="select('classic')">
+        <a
+          class="hot-item classic"
+          href="javascript:void(0)"
+          data-tab="classic"
+          @touchstart="select('classic')"
+        >
           <h2>经典电影</h2>
         </a>
       </div>
@@ -26,20 +46,46 @@
   </section>
 </template>
 
-<script lang='ts' setup>
-ref: selected = 'hot'
+<script lang='ts'>
+import { ref, onMounted } from "vue";
+import gps from "@/util/gps";
+import store from "@/store/simple_store";
+
+const selected = ref("hot");
+const curCity = ref(store.state.nm);
 
 // 切换tab
-const select : (v:string) => void = v => {
-  selected = v
-  let node = document.getElementsByClassName(v)
-  const allNode = document.getElementsByClassName('hot-item')
-  for(let i = 0 ;i<4;i++){
-    allNode[i].classList.remove('active')
+const select: (v: string) => void = (v) => {
+  selected.value = v;
+  let node = document.getElementsByClassName(v);
+  const allNode = document.getElementsByClassName("hot-item");
+  for (let i = 0; i < 4; i++) {
+    allNode[i].classList.remove("active");
   }
-  node[0].classList.add('active')
-}
+  node[0].classList.add("active");
+};
 
+const useGps: () => void = async () => {
+  console.log('usegps');
+  const ct:any = await gps();
+  store.mutations.CUR_CITY({ nm: ct });
+  curCity.value = ct;
+};
+
+export default {
+  setup() {
+    onMounted(() => {
+      if (!store.state.nm) {
+        useGps();
+      }
+    });
+    return {
+      selected,
+      select,
+      curCity,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -65,7 +111,7 @@ const select : (v:string) => void = v => {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  a{
+  a {
     color: #666;
   }
   .city-name {
@@ -107,41 +153,42 @@ const select : (v:string) => void = v => {
       font-size: 15px;
       font-weight: 700;
     }
-    &.active{
+    &.active {
       color: #333;
-      h2{
+      h2 {
         font-size: 17px;
       }
     }
-    &+.classic{
+    &.classic {
       width: 21.33333vw;
     }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 1px;
+      width: 20px;
+      width: 5.33333vw;
+      border-radius: 1px;
+      height: 3px;
+      background-color: #f03d37;
+      -webkit-transition: left 0.2s;
+      transition: left 0.2s;
+      left: 4vw;
+    }
   }
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 1px;
-    width: 20px;
-    width: 5.33333vw;
-    border-radius: 1px;
-    height: 3px;
-    background-color: #f03d37;
-    -webkit-transition: left 0.2s;
-    transition: left 0.2s;
+
+  &[data-active="hot"] .hot-item:after {
     left: 4vw;
   }
-  &[data-active="hot"]:after{
-    left:4vw
+  &[data-active="cinema"] .hot-item:after {
+    left: 17.33333vw;
   }
-  &[data-active="cinema"]:after{
-    left:17.33333vw
+  &[data-active="coming"] .hot-item:after {
+    left: 30.66667vw;
   }
-  &[data-active="coming"]:after{
-    left:30.66667vw
-  }
-  &[data-active="classic"]:after{
-    left:49.33333vw
+  &[data-active="classic"] .hot-item:after {
+    left: 49.33333vw;
   }
 }
 
