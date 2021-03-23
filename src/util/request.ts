@@ -6,10 +6,8 @@ const reqService = axios.create({
 
 reqService.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem('accessToken')
-    if (token) {
-      config.headers.common.Authorization = token
-    }
+    if(window.localStorage.get('ACCESS_TOKEN'))
+    config.headers.Authorization = `bearer ${window.localStorage.get('ACCESS_TOKEN')}`;
     return config
   },
   error => Promise.reject(error)

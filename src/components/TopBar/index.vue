@@ -2,7 +2,7 @@
   <section class="topbar">
     <div class="white-bg topbar-bg">
       <div class="city-entry">
-        <router-link to="city-list">
+        <router-link to="/city-list">
           <span class="city-name">{{ curCity ? curCity : "北京" }}</span>
           <i class="city-entry-arrow"></i>
         </router-link>
