@@ -39,6 +39,15 @@ const routes: Array<RouteRecordRaw> = [
           keepAlive: true
         },
         component: () => import('@/components/Coming/index.vue')
+      },
+      {
+        path: 'classic',
+        name: 'Classic',
+        meta: {
+          title: '经典电影',
+          keepAlive: true
+        },
+        component: () => import('@/components/CLassic/index.vue')
       }
     ]
   },

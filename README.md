@@ -1,6 +1,7 @@
 # vue3猫眼h5
 - `vite`构建
 - 全套vue-next
+- Typescript
 
 ## note&bug
 - `npm7`版本存在bug会损坏`package-lock`文件,vite运行抛出`EsBuild error`，降级回`npm6`
@@ -43,3 +44,13 @@
       }
     })
     ```
+
+- ref获取dom时，后续用可选链拿值报错
+  ```javascript
+    const scrollWrapper = ref(null)
+    let scrollTop = scrollWrapper.value?.scrollTop // 这里会报错scrollTop不存在never类型上
+
+    /* solution */
+    const scrollWrapper :Ref<HTMLElement | null> =  ref(null)
+
+  ```
