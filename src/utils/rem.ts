@@ -1,3 +1,4 @@
+import {debounce}  from 'lodash-es'
 const baseSize = 37.5
 
 function setRem(): void {
@@ -7,7 +8,6 @@ function setRem(): void {
 
 setRem()
 
-window.onresize = function (): void {
-  console.log('重新计算rem');
-  setRem()
+window.onresize = function(){
+  debounce(setRem,150)
 }

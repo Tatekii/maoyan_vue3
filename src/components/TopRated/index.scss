@@ -1,0 +1,121 @@
+.hot-celebrities,
+.hot-news,
+.top-rated {
+  padding: 12px 0 12px 15px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.hot-celebrities .title,
+.hot-news .title,
+.top-rated .title {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 12px;
+}
+.hot-celebrities-list,
+.top-rated-list {
+  overflow: scroll;
+  white-space: nowrap;
+}
+.top-rated-item {
+  display: inline-block;
+  width: 85px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.top-rated-item .poster {
+  width: 85px;
+  height: 115px;
+  position: relative;
+  margin-bottom: 6px;
+  img {
+    height: 100%;
+  }
+  .wish-bag {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+    position: absolute;
+    bottom: 0;
+    background-image: -webkit-linear-gradient(top, rgba(77, 77, 77, 0), #000);
+    background-image: linear-gradient(-180deg, rgba(77, 77, 77, 0), #000);
+  }
+}
+.default-img-bg {
+  background-color: #e1e1e1;
+  background-size: 100% 100%;
+}
+.top-rated-item .poster .score,
+.top-rated-item .poster .wish {
+  position: absolute;
+  left: 4px;
+  bottom: 2px;
+  color: #faaf00;
+  font-size: 11px;
+  font-weight: 600;
+}
+.top-rated-item .name {
+  margin: 0;
+  font-size: 13px;
+  color: #222;
+  margin-bottom: 3px;
+}
+.default-img-bg {
+  background-color: #e1e1e1;
+  background-size: 100% 100%;
+}
+.top-rated {
+  padding: 12px 0 12px 15px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  .title {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 12px;
+  }
+}
+.top-rated-list {
+  overflow: scroll;
+  white-space: nowrap;
+}
+.top-rated-item {
+  display: inline-block;
+  width: 85px;
+  overflow: hidden;
+  margin-right: 10px;
+  .poster {
+    width: 85px;
+    height: 115px;
+    position: relative;
+    margin-bottom: 6px;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+    .wish-bg {
+      display: inline-block;
+      width: 100%;
+      height: 35px;
+      position: absolute;
+      bottom: 0;
+      background-image: -webkit-linear-gradient(top, rgba(77, 77, 77, 0), #000);
+      background-image: linear-gradient(-180deg, rgba(77, 77, 77, 0), #000);
+    }
+    .score,.wish {
+      position: absolute;
+      left: 4px;
+      bottom: 2px;
+      color: #faaf00;
+      font-size: 11px;
+      font-weight: 600;
+  }
+  }
+  .name {
+    margin: 0;
+    font-size: 13px;
+    color: #222;
+    margin-bottom: 3px;
+  }
+}

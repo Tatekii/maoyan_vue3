@@ -5,7 +5,6 @@ import store from './store'
 import 'vant/lib/index.css'
 import './utils/rem'
 import './assets/style/common.scss'
-
 const app = createApp(App)
 app.use(router)
 app.use(store)

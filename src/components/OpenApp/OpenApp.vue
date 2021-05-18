@@ -21,6 +21,7 @@
       id="download-tip"
       class="tip-open-app"
       href="https://deeplink.maoyan.com/maoyan-app/app?channel=mymovie1yuan-dy"
+      v-show="showTip"
     >
       <img src="http://p1.meituan.net/scarlett/87654d5e4e5e057206969c3abb8e09f33151.png" />
       <div>打开App</div>
@@ -31,6 +32,12 @@
 <script>
 import './index.scss'
 export default {
+  props:{
+    showTip:{type:Boolean}
+  },
+  setup(){
+
+  }
 };
 </script>
 

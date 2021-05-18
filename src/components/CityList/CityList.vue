@@ -59,27 +59,27 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import requestCityList from "@/api/cityList";
 
-let cityList = ref();
-let hotCity = ref();
-let c = window.localStorage.getItem("cityList");
-let h = window.localStorage.getItem("hotCity");
-if (c && c.length && h && h.length) {
-  console.log("有缓存");
-  c = JSON.parse(c);
-  h = JSON.parse(h);
-  cityList.value = c;
-  hotCity.value = h;
-} else {
-  requestCityList.then((res: any) => {
-    let formated = formatCities(res.cts);
-    cityList.value = formated.cl;
-    hotCity.value = formated.hl;
-    window.localStorage.setItem("cityList", JSON.stringify(cityList.value));
-    window.localStorage.setItem("hotCity", JSON.stringify(hotCity.value));
-  });
-}
 export default {
   setup() {
+    let cityList = ref();
+    let hotCity = ref();
+    let c = window.localStorage.getItem("cityList");
+    let h = window.localStorage.getItem("hotCity");
+    if (c && c.length && h && h.length) {
+      console.log("有缓存");
+      c = JSON.parse(c);
+      h = JSON.parse(h);
+      cityList.value = c;
+      hotCity.value = h;
+    } else {
+      requestCityList.then((res: any) => {
+        let formated = formatCities(res.cts);
+        cityList.value = formated.cl;
+        hotCity.value = formated.hl;
+        window.localStorage.setItem("cityList", JSON.stringify(cityList.value));
+        window.localStorage.setItem("hotCity", JSON.stringify(hotCity.value));
+      });
+    }
     const store = useStore();
 
     const handleCity: (nm: string, id: number) => void = (nm, id) => {

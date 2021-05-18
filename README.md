@@ -54,3 +54,24 @@
     const scrollWrapper :Ref<HTMLElement | null> =  ref(null)
 
   ```
+
+- vitconfig的路径别名ts报错找不到模块，但可以正常使用
+  
+  ```javascript
+  // 在tsconfig中添加
+  "baseUrl": "./",
+  "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  ```
+
+- vue单文件组件中，先写好css，后追加innerHTML不生效
+  ```javascript
+  //受scope影响，编译的css文件生成唯一标识符，与后拼接的html不匹配
+  1. 去除scope
+  //or
+  2. 将css文件提出import引入
+
+  ```

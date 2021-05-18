@@ -51,7 +51,7 @@ import { useRouter } from "vue-router";
 import "./index.scss";
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
-// import gps from "@/util/gps";
+import gps from "@/util/gps";
 
 // const useGps: () => void = async () => {
 //   console.log("usegps");

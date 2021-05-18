@@ -24,6 +24,16 @@ export default defineConfig({
         target: "http://api.map.baidu.com/reverse_geocoding/v3/",
         changeOrigin: true,
         rewrite: path => path.replace("/location", "")
+      },
+      "/movieList": {
+        target: "https://m.maoyan.com/ajax/movieOnInfoList?optimus_code=10",
+        changeOrigin: true,
+        rewrite: path => path.replace("/movieList", "")
+      },
+      "/topRatedMovie": {
+        target: "https://m.maoyan.com/ajax/topRatedMovies?optimus_code=10",
+        changeOrigin: true,
+        rewrite: path => path.replace("topRatedMovie", "")
       }
     },
     cors: true

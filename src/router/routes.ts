@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
           title: '热映',
           keepAlive: true
         },
-        component: () => import('@/components/NowHot/index.vue')
+        component: () => import('@/components/NowHot/NowHot.vue')
       },
       {
         path: 'cinema',
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
           title: '影院',
           keepAlive: true
         },
-        component: () => import('@/components/Cinema/index.vue')
+        component: () => import('@/components/Cinema/Cinema.vue')
       },
       {
         path: 'coming',
@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
           title: '待映',
           keepAlive: true
         },
-        component: () => import('@/components/Coming/index.vue')
+        component: () => import('@/components/Coming/Comming.vue')
       },
       {
         path: 'classic',
@@ -58,7 +58,16 @@ const routes: Array<RouteRecordRaw> = [
       title: '选择城市',
       keepAlive: true
     },
-    component: () => import('@/components/CityList/index.vue')
+    component: () => import('@/components/CityList/CityLIst.vue')
+  },
+  {
+    path:'/search',
+    name:'Search',
+    meta:{
+      title:'搜索',
+      keepAlive:true
+    },
+    component: () => import('@/views/Search/index.vue')
   }
 ]
 
